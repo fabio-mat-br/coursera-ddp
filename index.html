@@ -56,6 +56,8 @@ Lots of data about the country are available in <a href="http://www.ibge.gov.br/
 
 <p>The GitHub repository is <a href="https://github.com/fabio-mat-br/coursera-ddp/tree/master">https://github.com/fabio-mat-br/coursera-ddp/tree/master</a></p>
 
+<p>The presentation is in <a href="http://fabio-mat-br.github.io/coursera-ddp/">http://fabio-mat-br.github.io/coursera-ddp/</a></p>
+
   </article>
   <!-- Presenter Notes -->
 </slide>
@@ -65,7 +67,21 @@ Lots of data about the country are available in <a href="http://www.ibge.gov.br/
     <h2>The file <code>server.R</code></h2>
   </hgroup>
   <article data-timings="">
-    
+    <p>The project needs a data file form IBGE&#39;s FTP, that will be downloaded when you run the application.</p>
+
+<p>We extract relevant information to our interactive data exploration:</p>
+
+<pre><code class="r">df_localidades &lt;- data.frame(data$LONG, data$LAT, data$ALT, data$NM_MUNICIP, data$NM_UF)
+rm(data) // removing original data
+names(df_localidades) &lt;- c(&quot;lon&quot;, &quot;lat&quot;, &quot;alt&quot;, &quot;city&quot;, &quot;uf&quot;)
+</code></pre>
+
+<p>And we also perform a filter based on the widgets values:</p>
+
+<pre><code class="r">df_localidades_selected &lt;- df_localidades_selected[which(
+  df_localidades_selected$uf == input$cmbUF), ]
+</code></pre>
+
   </article>
   <!-- Presenter Notes -->
 </slide>
@@ -75,7 +91,34 @@ Lots of data about the country are available in <a href="http://www.ibge.gov.br/
     <h2>The file <code>ui.R</code></h2>
   </hgroup>
   <article data-timings="">
-    
+    <p>In the user interface we designed some widgets to deal with latitude, longitude and altitude. Also, we can perform some filter based in city name and state select.</p>
+
+<pre><code class="r">sidebarPanel(
+      sliderInput(&quot;sldLat&quot;, label = h3(&quot;Latitude&quot;), min = -34, max = 6, value = c(-34, 6)),
+      sliderInput(&quot;sldLon&quot;, label = h3(&quot;Longitude&quot;), min = -74, max = -31, value = c(-74, -31)),
+      sliderInput(&quot;sldAlt&quot;, label = h3(&quot;Altitude&quot;), min = 0, max = 1640, value = c(0, 1640)),
+      textInput(&quot;txtCity&quot;, label = h3(&quot;City Name&quot;)),
+      selectInput(&quot;cmbUF&quot;, label = h3(&quot;State&quot;), choices = c(&quot;All&quot; = &quot;&quot;))
+</code></pre>
+
+<p>There&#39;s a tooltip below the chart.</p>
+
+<pre><code class="r"> tabPanel(&#39;Dataset&#39;, DT::dataTableOutput(&#39;dt_tbl&#39;))
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>The result</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The result is an elegant, intuitive and well comprehensible application which you can perform some kind of filters to evaluate and deal with the data.</p>
+
+<p><img src="img/screenshot.png" alt="Screenshot" title="Screenshot"></p>
+
   </article>
   <!-- Presenter Notes -->
 </slide>
@@ -100,6 +143,12 @@ Lots of data about the country are available in <a href="http://www.ibge.gov.br/
       <a href="#" target="_self" rel='tooltip' 
         data-slide=3 title='The file <code>ui.R</code>'>
          3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='The result'>
+         4
       </a>
     </li>
   </ul>
