@@ -4,7 +4,7 @@ library(shiny)
 library("shapefiles")
 library("rgl")
 if(!file.exists("data/BR_Localidades_2010_v1.dbf")){
-  download.file("ftp://geoftp.ibge.gov.br/organizacao_territorial/localidades/Shapefile_SHP/BR_Localidades_2010_v1.dbf", destfile = "BR_Localidades_2010_v1.dbf")
+  download.file("ftp://geoftp.ibge.gov.br/organizacao_do_territorio/estrutura_territorial/localidades/Shapefile_SHP/BR_Localidades_2010_v1.dbf", destfile = "BR_Localidades_2010_v1.dbf")
 }
 dbf <- read.dbf("data/BR_Localidades_2010_v1.dbf", TRUE)
 data <- dbf$dbf
